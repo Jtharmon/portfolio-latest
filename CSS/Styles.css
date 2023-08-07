@@ -1,0 +1,137 @@
+/* Rectangle 1 (white background) */
+.white-background .box {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.white-background .box .rectangle-wrapper {
+  border: 0px none;
+  height: 4594px;
+  width: 1440px;
+}
+
+.white-background .box .rectangle {
+  height: 4594px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 1440px;
+}
+
+/* Portfolio and quick bio of how I apply my expertise */
+.portfolio-bio .box {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.portfolio-bio .box .rectangle-wrapper {
+  border: 0px none;
+  height: 595px;
+  width: 1440px;
+}
+
+.portfolio-bio .box .rectangle {
+  background: linear-gradient(
+    180deg,
+    rgba(76.21, 98.49, 175.14, 0.86) 5.52%,
+    rgba(93.77, 90, 162.75, 0.81) 41.46%,
+    rgba(152.14, 19.27, 64.04, 0.54) 86.58%,
+    rgba(218.01, 29.98, 75.11, 0.47) 100%
+  );
+  border-radius: 0px 0px 70px 70px;
+  height: 595px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 1440px;
+}
+
+/* Portfolio text */
+.portfolio-text .label {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.portfolio-text .label .h-1-wrapper {
+  border: 0px none;
+  height: 247px;
+  width: 1440px;
+}
+
+.portfolio-text .label .text-wrapper {
+  color: #fefafa;
+  font-family: "Centaur-Regular", Helvetica;
+  font-size: 128px;
+  font-weight: 400;
+  height: 247px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 1440px;
+}
+
+/* Welcome to my portfolio textbox */
+.welcome-text .label {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.welcome-text .label .welcome-to-my-wrapper {
+  border: 0px none;
+  height: 394px;
+  width: 845px;
+}
+
+.welcome-text .label .welcome-to-my {
+  height: 314px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 816px;
+}
+
+/* Hi, I'm Jon */
+.hi-jon .label {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.hi-jon .label .h-1-wrapper {
+  border: 0px none;
+  height: 135px;
+  width: 810px;
+}
+
+.hi-jon .label .text-wrapper {
+  color: #000000;
+  font-family: "Centaur-Regular", Helvetica;
+  font-size: 64px;
+  font-weight: 400;
+  height: 135px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: fixed;
+  top: 0;
+  width: 810px;
+}
+
+/* Add more components here and assign unique classes or IDs */
