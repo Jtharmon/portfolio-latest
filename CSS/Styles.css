@@ -1,6 +1,6 @@
 /* Rectangle 1 (white background) */
 .white-background .box {
-  background-color: transparent;
+  background-color: black;
   display: flex;
   flex-direction: row;
   justify-content: center;
