@@ -8,8 +8,8 @@
 }
 
 .white-background .box .rectangle-wrapper {
-  border: 0px none;
-  height: 4594px;
+  border-radius: 0px 0px 70px 70px;
+  height: 595px;
   width: 1440px;
 }
 
