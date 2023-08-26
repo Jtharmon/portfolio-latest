@@ -9,9 +9,109 @@
 
 <body>
   <header class="header">
-    <a href="index.html">
-      <img src="img/Rectangle 2.png" width="100" height="100" alt="basketball.svg">
-    </a>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .image-container {
+            width: 100%;
+            height: fit-content;
+            background-image: url('img/Rectangle 2.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .portfolio-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .image {
+            width: 150px;
+            height: 150px;
+            margin-right: 20px;
+        }
+
+        .text {
+            font-size: 16px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+    </style>
+
+<div class="container">
+  <img class="image" src="img/Harvey.png" alt="Image 1">
+  <p class="description">
+      Bio picure of myself.
+  </p>
+</div>
+
+    <div class="image-container">
+        <div class="portfolio-title">Portfolio</div>
+        <div class="description">
+            I apply my expertise in Business, Web Development, and creative thinking to create successful applications and websites that address real-world issues for real people. I focus on designing solutions that meet the ideal balance of user needs, project goals, and technical feasibility.
+        </div>
+    </div>
+
+    <div class="grid-container">
+      <div class="grid-item">
+          <a href="pokedex.html">
+              <img class="image" src="img/pokeball.png" alt="pokeball">
+          </a>
+          <p>pokedex case study</p>
+      </div>
+
+      <div class="grid-item">
+          <a href="to-do.html">
+              <img class="image" src="img/todo.png" alt="to-do">
+          </a>
+          <p>to-do case study</p>
+      </div>
+
+      <div class="grid-item">
+          <a href="event.html">
+              <img class="image" src="img/event.png" alt="event">
+          </a>
+          <p>event case study</p>
+      </div>
+
+      <div class="grid-item">
+          <a href="case-study4.html">
+              <img class="image" src="img/image4.png" alt="Case Study 4">
+          </a>
+          <p>Case Study 4</p>
+      </div>
+  </div>
+
+
     <nav>
         <ul class="nav_flex">
           <li>
@@ -38,6 +138,15 @@
         jtharmon10@gmail.com
       </a>
       </div>
+
+      <div class="container">
+        <img class="image" src="img/pokeball.png" alt="pokeball">
+        <p class="description">
+            Description for Image 2 goes here.
+        </p>
+      </div>
+      
+
     <div class="info_section flex">
         <div>Phone number</div> 
         <a href="tel:574-253-2171">
