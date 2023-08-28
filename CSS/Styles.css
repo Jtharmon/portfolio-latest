@@ -49,8 +49,8 @@ body {
 }
 
 .image-box {
-  max-width: 800px;
-  margin: 50px auto;
+  max-width: 400px;
+  margin: 25px auto;
   display: flex;
   overflow: hidden;
 }
@@ -64,6 +64,10 @@ body {
 .image-link a {
   display: block;
   position: relative;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  transition: transform 0.3 ease;
 }
 
 .image-link img {
@@ -114,7 +118,6 @@ body {
 
 
 
-
 .white-background .box .rectangle-wrapper {
   border-radius: 0px 0px 70px 70px;
   height: 595px;
@@ -127,6 +130,18 @@ body {
   position: fixed;
   top: 0;
   width: 1440px;
+}
+
+.portfolio-title {
+  font-weight: bold;
+  font-size: 100px;
+  margin-bottom: 10px;
+}
+
+.tools-i-use {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 /* Portfolio and quick bio of how I apply my expertise */
