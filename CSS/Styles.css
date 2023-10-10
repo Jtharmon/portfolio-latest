@@ -30,11 +30,6 @@
   font-size: 16px;
 }
         
-/* .grid-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-} */
 
 .grid-item {
   display: flex;
@@ -396,6 +391,14 @@ body {
 
 /* Add more components here and assign unique classes or IDs */
 
+
+.tools {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -439,4 +442,39 @@ body {
   flex: 1;
   font-size: 16px;
   text-align: left;
+}
+
+/* Style for the left column (Case Studies) */
+.case-studies {
+  float: left; /* Float left to place it on the left side */
+  width: 50%; /* Set the width to occupy half of the screen */
+  padding: 20px; /* Add padding for spacing */
+}
+
+/* Style for the right column (Experience) */
+.experience {
+  float: right; /* Float right to place it on the right side */
+  width: 50%; /* Set the width to occupy half of the screen */
+  padding: 20px; /* Add padding for spacing */
+}
+
+/* Clear any floats to prevent layout issues */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Connect with me */
+
+.bottom-connect {
+  text-align: center;
+  padding: 10
+  px 0;
+  color: black;
+  background-color: #ccc;
+  width: 50%;
+  bottom: 0;
+  left: 0;
+  position: fixed;
 }
