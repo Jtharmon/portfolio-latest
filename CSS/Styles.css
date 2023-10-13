@@ -12,7 +12,7 @@
 .description {
   width: 800px;
   color: black;
-  
+
 }
 
 .container {
@@ -29,7 +29,7 @@
 .text {
   font-size: 16px;
 }
-        
+
 
 .grid-item {
   display: flex;
@@ -453,9 +453,12 @@ body {
 
 /* Style for the right column (Experience) */
 .experience {
-  float: right; /* Float right to place it on the right side */
-  width: 50%; /* Set the width to occupy half of the screen */
-  padding: 20px; /* Add padding for spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  padding: 20px;
+  margin: 0 auto; /* Center horizontally */
 }
 
 /* Clear any floats to prevent layout issues */
@@ -465,16 +468,16 @@ body {
   clear: both;
 }
 
-/* Connect with me */
 
-.bottom-connect {
-  text-align: center;
-  padding: 10
-  px 0;
-  color: black;
-  background-color: #ccc;
-  width: 50%;
-  bottom: 0;
-  left: 0;
-  position: fixed;
+/* Footer styling Connect with me! */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* Centered text */
+  padding: 10px 0; /* Adjust padding as needed */
+  color: black; /* Text color */
+  background-color: #ccc; /* Background color */
+  width: 40%; /* Set the desired width */
+  margin: 0 auto; /* Center horizontally */
 }
