@@ -1,426 +1,55 @@
-/* Rectangle 1 (white background) */
-.white-background .box {
-  background-color: blue;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 4594px;
-  fill: white;
-}
-
-.description {
-  width: 800px;
-  color: black;
-
-}
-
-.container {
-  display: flex;
-  align-items: center;
-}
-
-.image {
-  width: 300px;
-  height: 300px;
-  margin-right: 50px;
-}
-
-.text {
-  font-size: 16px;
-}
-
-
-.grid-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+/* Reset and base styles */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  transition: background-color 0.5s, color 0.5s;
 }
 
-.image-box {
-  max-width: 400px;
-  margin: 25px auto;
-  display: flex;
-  overflow: hidden;
+/* Light and Dark Mode Switching */
+body.dark-mode {
+  background-color: #333;
+  color: #fff;
 }
 
-.image-link {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
+body.light-mode {
+  color: #000;
 }
 
-.image-link a {
-  display: block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  transition: transform 0.3 ease;
+.light-switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1000;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.contact,
-.tools {
-  padding: 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.images {
-  display: flex;
-  gap: 10px;
-}
-
-.image-link {
-  overflow: hidden;
-}
-
-.image-link a {
-  display: block;
-}
-
-.image-link img {
-  display: block;
-  width: 50px; /* Adjust the image size as needed */
-  height: auto;
-}
-
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
+/* Header styles */
 .image-container {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-/* .portfolio-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-} */
-
-.description {
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* .grid-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-} */
-
-.grid-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.image {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-.image-container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background-color: transparent;
+  border: none;
   border-radius: 8px;
 }
 
 .portfolio-title {
   font-size: 24px;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   margin-bottom: 10px;
+  color: black;
 }
 
-/* .grid-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-} */
-
-.grid-item {
-  display: flex;
-  gap: 20px;
-}
-
-.image {
-  max-width: 100%;
-  height: auto;
-}
-
-.text {
-  flex: 1;
+.description {
   font-size: 16px;
   text-align: left;
+  margin-bottom: 20px;
+  color: black;
 }
 
-
-
-.image-link img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-
-.image-link:hover img {
-  transform: scale(1.1);
-}
-
-.image-link::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.image-link:hover::before {
-  opacity: 1;
-}
-
-.image-link a,
-.image-link::before {
-  transition: opacity 0.3s ease;
-}
-
-.image-link a {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px;
-}
-
-.image-link a:hover::before {
-  opacity: 0;
-}
-
-
-
-.white-background .box .rectangle-wrapper {
-  border-radius: 0px 0px 70px 70px;
-  height: 595px;
-  width: 1440px;
-}
-
-.white-background .box .rectangle {
-  height: 4594px;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 1440px;
-}
-
-.portfolio-title {
-  font-weight: bold;
-  font-size: 100px;
-  margin-bottom: 10px;
-}
-
-.tools-i-use {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-/* Portfolio and quick bio of how I apply my expertise */
-.portfolio-bio .box {
-  background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
-.portfolio-bio .box .rectangle-wrapper {
-  border: 0px none;
-  height: 595px;
-  width: 1440px;
-}
-
-.portfolio-bio .box .rectangle {
-  background: linear-gradient(
-    180deg,
-    rgba(76.21, 98.49, 175.14, 0.86) 5.52%,
-    rgba(93.77, 90, 162.75, 0.81) 41.46%,
-    rgba(152.14, 19.27, 64.04, 0.54) 86.58%,
-    rgba(218.01, 29.98, 75.11, 0.47) 100%
-  );
-  border-radius: 0px 0px 70px 70px;
-  height: 595px;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 1440px;
-}
-
-/* Portfolio text */
-.portfolio-text .label {
-  background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
-.portfolio-text .label .h-1-wrapper {
-  border: 0px none;
-  height: 247px;
-  width: 1440px;
-}
-
-.portfolio-text .label .text-wrapper {
-  color: #fefafa;
-  font-family: "Centaur-Regular", Helvetica;
-  font-size: 128px;
-  font-weight: 400;
-  height: 247px;
-  left: 0;
-  letter-spacing: 0;
-  line-height: normal;
-  position: fixed;
-  text-align: center;
-  top: 0;
-  width: 1440px;
-}
-
-/* Welcome to my portfolio textbox */
-.welcome-text .label {
-  background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
-.welcome-text .label .welcome-to-my-wrapper {
-  border: 0px none;
-  height: 394px;
-  width: 845px;
-}
-
-.welcome-text .label .welcome-to-my {
-  height: 314px;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 816px;
-}
-
-/* Hi, I'm Jon */
-.hi-jon .label {
-  background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
-.hi-jon .label .h-1-wrapper {
-  border: 0px none;
-  height: 135px;
-  width: 810px;
-}
-
-.hi-jon .label .text-wrapper {
-  color: #000000;
-  font-family: "Centaur-Regular", Helvetica;
-  font-size: 64px;
-  font-weight: 400;
-  height: 135px;
-  left: 0;
-  letter-spacing: 0;
-  line-height: normal;
-  position: fixed;
-  top: 0;
-  width: 810px;
-}
-
-/* Add more components here and assign unique classes or IDs */
-
-
-.tools {
-  padding: 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-.image-container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.portfolio-title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
+/* Grid and Image styles */
 .grid-container {
   display: flex;
   justify-content: center;
@@ -444,40 +73,91 @@ body {
   text-align: left;
 }
 
-/* Style for the left column (Case Studies) */
+/* Case Studies and Experience styles */
 .case-studies {
-  float: left; /* Float left to place it on the left side */
-  width: 50%; /* Set the width to occupy half of the screen */
-  padding: 20px; /* Add padding for spacing */
+  float: left;
+  width: 50%;
+  padding: 20px;
 }
 
-/* Style for the right column (Experience) */
 .experience {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
   padding: 20px;
-  margin: 0 auto; /* Center horizontally */
+  margin: 0 auto;
 }
 
-/* Clear any floats to prevent layout issues */
 .clearfix::after {
   content: "";
   display: table;
   clear: both;
 }
 
-
-/* Footer styling Connect with me! */
+/* Footer styles */
 .footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center; /* Centered text */
-  padding: 10px 0; /* Adjust padding as needed */
-  color: black; /* Text color */
-  background-color: #ccc; /* Background color */
-  width: 40%; /* Set the desired width */
-  margin: 0 auto; /* Center horizontally */
+  text-align: center;
+  padding: 10px 0;
+  color: black;
+  background-color: #ccc;
+  width: 40%;
+  margin: 0 auto;
 }
+
+/* Image Link styles */
+.image-link {
+  overflow: hidden;
+}
+
+.image-link a {
+  display: block;
+}
+
+.image-link img {
+  display: block;
+  width: 50px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.image-link:hover img {
+  transform: scale(1.1);
+}
+
+.image-link::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+
+.image-link a,
+.image-link::before {
+  transition: opacity 0.3s ease;
+}
+
+.image-link a {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.image-link a:hover::before {
+  opacity: 0;
+}
+
+/* Additional styles for other sections can be added here */

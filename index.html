@@ -14,17 +14,27 @@
       <div class="description">
         I apply my expertise in Business, Web Development, and creative thinking to create successful applications and websites that address real-world issues for real people. I focus on designing solutions that meet the ideal balance of user needs, project goals, and technical feasibility.
       </div>
-
-      <div class="grid-container">
+  
+      <!-- <div class="grid-container">
         <div class="grid-item">
           <a href="img/bio-pic.png">
             <img class="image" src="img/bio-pic.png" alt="background-image">
           </a>
           <p>Welcome to my portfolio! I am a passionate and skilled Web Developer dedicated to creating responsive, visually appealing and user-friendly websites and applications using modern web development frameworks and tools. Take a moment to explore my portfolio, and see my projects!</p>
+        </div> -->
+  
+        <!-- New section for text in the middle left side -->
+        <div class="text-section">
+          <h2>My Mission</h2>
+          <p>
+            My mission is to leverage my skills in web development to make a positive impact on the digital world. Through creative problem-solving and innovative solutions, I strive to create applications that not only meet the technical requirements but also exceed user expectations.
+          </p>
         </div>
+        <!-- End of new section -->
       </div>
     </div>
   </header>
+  
   
   <div class="grid-container">
     <div class="grid-item">
@@ -40,22 +50,20 @@
     </div>
   </div>
 
-  <body>
-    <div class="experience">
-      <h2>Experience</h2>
-      <div class="experience-item">
-        <p class="job-title">Web Developer | 2022-Present</p>
-        <p class="job-description">
-          -Used Front End development skills such as JavaScript, React.js/React Native, and Angular.js.<br>
-          -Used Back End development skills such as: Node.js.<br>
-          -Used database skills such as MongoDB and Mongoose.<br>
-          -Created personal websites including a fully functional portfolio website and Pokemon Pokedex using JavaScript and HTML5.<br>
-          -Developed a Movie list application with a focus on Node.js for the server-side, and React.js for the client-side.<br>
-          -Designed a meet app to show events going on in your city with a search event feature, using both Google API and AWS.
-        </p>
-      </div>
+  <div class="experience">
+    <h2>Experience</h2>
+    <div class="experience-item">
+      <p class="job-title">Web Developer | 2022-Present</p>
+      <p class="job-description">
+        -Used Front End development skills such as JavaScript, React.js/React Native, and Angular.js.<br>
+        -Used Back End development skills such as: Node.js.<br>
+        -Used database skills such as MongoDB and Mongoose.<br>
+        -Created personal websites including a fully functional portfolio website and Pokemon Pokedex using JavaScript and HTML5.<br>
+        -Developed a Movie list application with a focus on Node.js for the server-side, and React.js for the client-side.<br>
+        -Designed a meet app to show events going on in your city with a search event feature, using both Google API and AWS.
+      </p>
     </div>
-  </body>
+  </div>
 
   <footer class="footer">
     <div class="bottom-connect">
@@ -79,4 +87,31 @@
       </div>
     </div>
   </footer>
+
+  <!-- Light/Dark Mode Switch Script -->
+  <script>
+    const body = document.body;
+    const lightSwitch = document.createElement('div');
+    lightSwitch.className = 'light-switch';
+    lightSwitch.textContent = '🌞';
+
+    // Check if there is a saved preference in localStorage
+    const savedMode = localStorage.getItem('theme');
+    if (savedMode) {
+      body.classList.add(savedMode);
+      lightSwitch.textContent = savedMode === 'dark-mode' ? '🌙' : '🌞';
+    }
+
+    lightSwitch.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      const isDarkMode = body.classList.contains('dark-mode');
+      lightSwitch.textContent = isDarkMode ? '🌞' : '🌙';
+
+      // Save the preference in localStorage
+      localStorage.setItem('theme', isDarkMode ? 'dark-mode' : 'light-mode');
+    });
+
+    document.body.appendChild(lightSwitch);
+  </script>
+</body>
 </html>
