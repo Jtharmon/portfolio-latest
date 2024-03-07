@@ -104,10 +104,12 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       </div>
     </div>
 
-    <button class="w3-button w3-light-grey w3-padding-large w3-section">
-      <i class="fa fa-download"></i> Download Resume
-    </button>
-    
+    <a href="/added-docs/PortfolioProfile.pdf" download="your_resume.pdf" target="_blank">
+      <button class="w3-button w3-light-grey w3-padding-large w3-section">
+        <i class="fa fa-download"></i> Download Resume (PDF)
+      </button>
+    </a>
+        
     <!-- Grid for pricing tables -->
     
     
@@ -152,41 +154,46 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       <!-- End Portfolio Section -->
   </div>
 
-  <!-- Contact Section -->
-  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-    <h2 class="w3-text-light-grey">Contact Me</h2>
-    <hr style="width:200px" class="w3-opacity">
+<!-- Contact Section -->
+<div class="w3-padding-64 w3-content w3-text-grey" id="contact">
+  <h2 class="w3-text-light-grey">Contact Me</h2>
+  <hr style="width:200px" class="w3-opacity">
 
-    <div class="w3-section">
+  <div class="w3-section">
       <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Indianapolis, Indiana</p>
       <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: Given upon request</p>
       <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: Jtharmon10@gmail.com</p>
-    </div><br>
-    <p>Let's get in touch. Send me a message:</p>
+  </div>
+  <br>
+  <p>Let's get in touch. Send me a message:</p>
 
-    <form action="/action_page.php" target="_blank">
+  <form action="mailto:jtharmon10@gmail.com" method="post" enctype="text/plain">
       <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
       <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
       <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
+      <p><textarea class="w3-input w3-padding-16" placeholder="Your Message" required name="Message"></textarea></p>
       <p>
-        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-          <i class="fa fa-paper-plane"></i> SEND MESSAGE
-        </button>
+          <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+              <i class="fa fa-paper-plane"></i> SEND MESSAGE
+          </button>
       </p>
-    </form>
+  </form>
   <!-- End Contact Section -->
-  </div>
-  
-    <!-- Footer -->
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-    
-  <!-- End footer -->
-  </footer>
+</div>
 
+    <!-- Footer -->
+    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+      <a href="https://www.facebook.com/jon.harmon.125/" target="_blank" class="w3-hover-opacity">
+          <i class="fa fa-facebook-official"></i>
+      </a>
+      <a href="https://www.instagram.com/your_instagram_profile" target="_blank" class="w3-hover-opacity">
+          <i class="fa fa-instagram"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/jonathan-harmon-1bab03150/" target="_blank" class="w3-hover-opacity">
+          <i class="fa fa-linkedin"></i>
+      </a>
+  </footer>
+  
 <!-- END PAGE CONTENT -->
 </div>
 
