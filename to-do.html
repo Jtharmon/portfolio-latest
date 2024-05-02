@@ -1,120 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jon's To Do List</title>
-  <link rel="shortcut icon" type="image/png" href="img/Kyrie.png">
-  <link rel="stylesheet" type="text/css" href="css/Styles.css">
+<title>To Do List</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
 </head>
-<body>
-  <header class="header">
-    
-    <body>
-      <div class="image-container">
-          <div class="portfolio-title">To Do</div>
-        <div class="description">
-            "Time To Get Er Done" 
-          </div>
-    
-        <div class="grid-container">
-          <div class="grid-item">
-            <a href="img/to-do.png">
-              <img class="image" src="img/to-do.png" alt="background-image">
-            </a>
-            <p>Welcome to my To Do application!</p>
-          </div>
-        </div>
-      </div>
-</body>  
+<body class="w3-light-grey">
+
+<!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1400px">
+
+<!-- Header -->
+<header class="w3-container w3-center w3-padding-32"> 
+  <h1><b>To Do Case Study</b></h1>
+  <p>Welcome to my To Do Application Case Study</p>
+  <img src="img/to-do.png" alt="to-do-visual1" style="width: 100px; height: 100px;">
 </header>
-  
-</head>
-<!-- <div class="grid-container">
-    <div class="grid-item">
-        <img class="image" src="img/pokeball.png" alt="pokeball">
-    </div> -->
-    <div class="grid-item">
-        <img class="image" src="img/to-do-visual1.png" alt="main-page">
-    </div>
-    <div class="grid-item description">
-        <a href="">Main Page</a>
-        <p>
-        This is what the main page of the application looks like. As you can see, there is a place to type in something you need to remember.
-        </p>
+
+<!-- Grid -->
+<div class="w3-row">
+
+<!-- Blog entries -->
+<div class="w3-col l8 s12">
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <img src="img/to-do-visual1.png" alt="Main page" style="width:100%">
+    <div class="w3-container">
+      <h3><b>MAIN PAGE</b></h3>
+      <!-- <h5>Title description,</h5> -->
     </div>
 
-    <div class="grid-item">
-        <img class="image" src="img/to-do-visual2.png" alt="detail-modal">
-    </div>
-    <div class="grid-item description">
-        <a href="">Detail Modal</a>
-        <p>
-            Once you type something in click on the add button, and it will appear below in a list fashion. 
-        </p>
-    </div>
-    </div>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Web Developer Experience</title>
-  </head>
-  <body>
-    <div class="experience">
-      <h2>Introduction</h2>
-      <div class="experience-item">
-        <p class="job-description">
-            The To-Do List App is a web application designed to help users organize and manage their tasks efficiently. With an intuitive user interface, task categorization, and responsive design, the app aims to streamline task management and improve user productivity. The project repository can be accessed on GitHub here.        </p>
+    <div class="w3-container">
+      <p>Welcome to the To-Do List app hosted on GitHub! I'm very excited to present this project, showcasing my skills in web development and project management. 
+        This app serves as a powerful tool for organizing tasks and boosting productivity. 
+        Join me as we explore the features and functionalities of this intuitive To-Do List app.
+      </p>
+      <div class="w3-row">
+          <div class="w3-col m4 w3-hide-small">
+          </div>
       </div>
-    </div>  
-    
-    <div class="experience">
-        <h2>Challenge</h2>
-        <div class="experience-item">
-          <p class="job-description">
-            The main challenge in this project was to create a user-friendly task management application that could effectively handle task creation, updates, and deletions, while also ensuring that the app remained responsive and accessible across different devices and screen sizes.        </p>
-        </div>
-      </div>  
+    </div>
+  </div>
+  <hr>
 
-      <div class="experience">
-        <h2>Solutions</h2>
-        <div class="experience-item">
-          <p class="job-description">
-            To address the challenge, several key solutions were implemented:
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+  <img src="img/to-do-visual2.png" alt="Details Modal" style="width:100%">
+    <div class="w3-container">
+      <h3><b>Details Modal</b></h3>
+      <!-- <h5>Title description,</h5> -->
+    </div>
 
-            Intuitive User Interface: The app's design focused on simplicity and clarity, enabling users to quickly understand how to create, update, and delete tasks.<br>
-            Local Storage Implementation: By utilizing local storage, tasks were stored on the user's device, allowing tasks to persist across sessions without relying on a backend database.<br>
-            Responsive Design: CSS media queries were employed to create a responsive layout that adapted to various screen sizes, ensuring a seamless experience on desktops, tablets, and smartphones.<br>
-            Results:<br>
-            The project successfully achieved its goals:<br>
-            <br>
-            User-Friendly Interface: The intuitive design made task management easy and accessible to users of all technical backgrounds.<br>
-            Persistent Data: Local storage implementation enabled tasks to be saved locally, eliminating the need for user accounts or cloud synchronization.<br>
-            Cross-Device Compatibility: The responsive design ensured that the app functioned seamlessly on a range of devices and screen sizes.<br>
-                    
-            </p>
-        </div>
-      </div>  
+    <div class="w3-container">
+      <p>The main page of the To-Do List app serves as a hub for task management and organization. 
+        You'll encounter a clean and user-friendly interface designed to streamline your workflow and enhance your productivity. 
+        From adding and prioritizing tasks to marking them as completed, each feature demonstrates the simplicity and effectiveness of the To-Do List app.
+         Additionally, the main page offers insights into the app's capabilities and customization options through concise descriptions and intuitive navigation.
+      </p>
+    </div>
+  </div>
+<!-- END BLOG ENTRIES -->
+</div>
+
+<!-- Introduction menu -->
+<div class="w3-col l4">
+  <!-- Introduction Card -->
+  <div class="w3-card w3-margin w3-margin-top">
+    <div class="w3-container w3-white">
+      <h4><b>Introduction</b></h4>
+      <p>Welcome to the simple JavaScript app hosted on GitHub! I'm thrilled about this project, because it showcase my skills in JavaScript development, as well as Pokemon.
+          This app is a demonstration of my proficiency in building interactive and dynamic web applications. 
+          Join me as we explore the features and functionalities of this simple yet powerful JavaScript app!</p>
+    </div>
+  </div><hr>
   
+  <!-- Challanges Card -->
+  <div class="w3-card w3-margin">
+      <div class="w3-container w3-white">
+        <h4><b>Challanges</b></h4>
+        <p>The main challenge in this project was to create a user-friendly task management application that could effectively handle task creation, updates, and deletions,
+           while also ensuring that the app remained responsive and accessible across different devices and screen sizes.
+        </p>
+      </div>
+    </div>
+    <div class="w3-card w3-margin">
+      <div class="w3-container w3-white">
+        <h4><b>Solutions</b></h4>
+        <p>To address the challenge, several key solutions were implemented: Intuitive User Interface: The app's design focused on simplicity and clarity, enabling users to quickly understand how to create, update, and delete tasks.
+          Local Storage Implementation: By utilizing local storage, tasks were stored on the user's device, allowing tasks to persist across sessions without relying on a backend database.
+          Responsive Design: CSS media queries were employed to create a responsive layout that adapted to various screen sizes, ensuring a seamless experience on desktops, tablets, and smartphones.
+          Results:
+          The project successfully achieved its goals:
+          
+          User-Friendly Interface: The intuitive design made task management easy and accessible to users of all technical backgrounds.
+          Persistent Data: Local storage implementation enabled tasks to be saved locally, eliminating the need for user accounts or cloud synchronization.
+          Cross-Device Compatibility: The responsive design ensured that the app functioned seamlessly on a range of devices and screen sizes.</p>
+      </div>
+    </div>
+  
+  </div>
+  <hr> 
+ 
+  <!-- Labels / tags -->
+  <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Languages Used</h4>
+    </div>
+    <div class="w3-container w3-white">
+    <p><span class="w3-tag w3-black w3-margin-bottom">JavaScript</span>
+       <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">HTML</span>
+       <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">CSS</span>
+    </p>
+    </div>
+  </div>
+  
+<!-- END Introduction Menu -->
+</div>
 
+<!-- END GRID -->
+</div><br>
 
-    <nav>
-        <ul class="nav_flex">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <!-- <li>
-            <a href="about.html">About Me</a>
-          </li>
-          <li>
-            <a href="contact.html">Contact</a>
-          </li>
-          <li>
-            <a href="work.html">Work</a>
-          </li> -->
-        </ul>
-      </nav>
-    </header>
-  </body>
+<!-- END w3-content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+  <a href="index.html">
+    <button class="w3-button w3-black w3-padding-large w3-margin-bottom">Home</button>
+  </a>
+</footer>
+
+</body>
 </html>
