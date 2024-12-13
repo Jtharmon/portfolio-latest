@@ -7,24 +7,116 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="img/harvey.png" type="image/x-icon"> <!-- Specify the path to your favicon.ico file -->
+    <link rel="icon" href="img/harvey.png" type="image/x-icon">
     <style>
-    body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-    .w3-row-padding img {margin-bottom: 12px}
-    /* Set the width of the sidebar to 120px */
-    .w3-sidebar {width: 120px;background: #222;}
-    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-    #main {margin-left: 120px}
-    /* Remove margins from "page content" on small screens */
-    @media only screen and (max-width: 600px) {#main {margin-left: 0}}
-    </style>
-    </head>
-    <body class="w3-black">
+    body, h1, h2, h3, h4, h5, h6 {
+        font-family: "Montserrat", sans-serif;
+    }
+    .w3-row-padding img {
+        margin-bottom: 12px;
+    }
+    .w3-sidebar {
+        width: 120px;
+        background: #222;
+    }
+    #main {
+        margin-left: 120px;
+    }
+    @media only screen and (max-width: 600px) {
+        #main {
+            margin-left: 0;
+        }
+    }
+    
+    /* Light and dark mode styles */
+    body.light-mode {
+        background-color: #ffffff;
+        color: #000000;
+    }
+    body.light-mode .w3-black {
+        background-color: #f1f1f1 !important;
+        color: #000000 !important;
+    }
+    body.light-mode .w3-dark-grey {
+        background-color: #ddd !important;
+    }
 
+    /* Round slider switch styles */
+    .round-switch {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .round-slider {
+        width: 50px;
+        height: 25px;
+        background-color: #ccc;
+        border-radius: 25px;
+        position: relative;
+        transition: background-color 0.3s;
+    }
+    .round-slider .slider-button {
+        width: 21px;
+        height: 21px;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: left 0.3s;
+    }
+    .round-slider.active {
+        background-color: #000;
+    }
+    .round-slider.active .slider-button {
+        left: 27px;
+    }
+    .round-slider .icon {
+        position: absolute;
+        top: 3px;
+        font-size: 18px;
+    }
+    .round-slider .icon.sun {
+        left: 5px;
+        color: #ffa500;
+    }
+    .round-slider .icon.moon {
+        right: 5px;
+        color: #ffffff;
+    }
+    </style>
+    <script>
+      function toggleMode() {
+        const body = document.body;
+        const slider = document.querySelector(".round-slider");
+
+        if (body.classList.contains("light-mode")) {
+          body.classList.remove("light-mode");
+          slider.classList.remove("active");
+        } else {
+          body.classList.add("light-mode");
+          slider.classList.add("active");
+        }
+      }
+    </script>
+  </head>
+  <body class="w3-black">
+
+    <!-- Light/Dark Mode Switch -->
+    <div class="round-switch" onclick="toggleMode()">
+      <div class="round-slider">
+        <i class="icon sun fa fa-sun-o"></i>
+        <i class="icon moon fa fa-moon-o"></i>
+        <div class="slider-button"></div>
+      </div>
+    </div>
+  
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <!-- Avatar image in top left corner -->
-  <img src="img/Kyrie.png" style="width:100%">
   <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
