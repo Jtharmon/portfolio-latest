@@ -193,3 +193,40 @@ body.light-mode {
 .image-link a:hover::before {
   opacity: 0;
 }
+
+/* Add transition effect on modal content */
+  .w3-modal-content {
+    transition: transform 0.3s ease-out;
+  }
+
+  .w3-modal-content.w3-animate-top {
+    transform: translateY(-100px);
+  }
+
+  /* Hover effect for the modal button */
+  .w3-button:hover {
+    transform: scale(1.1);
+  }
+
+    /* Ensure the modal image is well-sized and centered */
+    .modal-image {
+      width: 80%;  /* Adjust size as needed */
+      max-width: 300px;  /* Optional, adjust size */
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+  
+    /* Hover effect for the modal button */
+    .w3-button:hover {
+      transform: scale(1.05);
+    }
+  
+    /* Smooth transitions for the modal */
+    .w3-modal-content {
+      transition: transform 0.3s ease-out;
+    }
+  
+    .w3-modal-content.w3-animate-top {
+      transform: translateY(-100px);
+    }
