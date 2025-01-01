@@ -1,318 +1,296 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Jon Portfolio</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="img/harvey.png" type="image/x-icon">
-    <style>
-    body, h1, h2, h3, h4, h5, h6 {
-        font-family: "Montserrat", sans-serif;
-    }
-    .w3-row-padding img {
-        margin-bottom: 12px;
-    }
-    .w3-sidebar {
-        width: 120px;
-        background: #222;
-    }
-    #main {
-        margin-left: 120px;
-    }
-    @media only screen and (max-width: 600px) {
-        #main {
-            margin-left: 0;
-        }
-    }
-    
-    /* Light and dark mode styles */
-    body.light-mode {
-        background-color: #ffffff;
-        color: #000000;
-    }
-    body.light-mode .w3-black {
-        background-color: #f1f1f1 !important;
-        color: #000000 !important;
-    }
-    body.light-mode .w3-dark-grey {
-        background-color: #ddd !important;
-    }
+<head>
+<title>Jon Harmon Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body id="myPage">
 
-    /* Round slider switch styles */
-    .round-switch {
-        position: fixed;
-        top: 16px;
-        right: 16px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
-    .round-slider {
-        width: 50px;
-        height: 25px;
-        background-color: #ccc;
-        border-radius: 25px;
-        position: relative;
-        transition: background-color 0.3s;
-    }
-    .round-slider .slider-button {
-        width: 21px;
-        height: 21px;
-        background-color: #fff;
-        border-radius: 50%;
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        transition: left 0.3s;
-    }
-    .round-slider.active {
-        background-color: #000;
-    }
-    .round-slider.active .slider-button {
-        left: 27px;
-    }
-    .round-slider .icon {
-        position: absolute;
-        top: 3px;
-        font-size: 18px;
-    }
-    .round-slider .icon.sun {
-        left: 5px;
-        color: #ffa500;
-    }
-    .round-slider .icon.moon {
-        right: 5px;
-        color: #ffffff;
-    }
-    </style>
-    <script>
-      function toggleMode() {
-        const body = document.body;
-        const slider = document.querySelector(".round-slider");
-
-        if (body.classList.contains("light-mode")) {
-          body.classList.remove("light-mode");
-          slider.classList.remove("active");
-        } else {
-          body.classList.add("light-mode");
-          slider.classList.add("active");
-        }
-      }
-    </script>
-  </head>
-  <body class="w3-black">
-
-    <!-- Light/Dark Mode Switch -->
-    <div class="round-switch" onclick="toggleMode()">
-      <div class="round-slider">
-        <i class="icon sun fa fa-sun-o"></i>
-        <i class="icon moon fa fa-moon-o"></i>
-        <div class="slider-button"></div>
-      </div>
-    </div>
-  
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
+<!-- Sidebar on click -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge" style="display:none;z-index:2" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-display-topright w3-text-teal">Close
+    <i class="fa fa-remove"></i>
   </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>Case Studies</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
+  <a href="#" class="w3-bar-item w3-button">Link 1</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  <a href="#" class="w3-bar-item w3-button">Link 4</a>
+  <a href="#" class="w3-bar-item w3-button">Link 5</a>
 </nav>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">CASE STUDIES</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+<!-- Navbar -->
+<div class="w3-top">
+ <div class="w3-bar w3-theme-d2 w3-left-align">
+  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+  <!-- <a href="#" class="w3-bar-item w3-button w3-theme-black"><i class="fa fa-home w3-margin-right"></i>Logo</a> -->
+  <a href="#team" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About Me</a>
+  <a href="#work" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Work</a>
+    <!-- <div class="w3-dropdown-hover w3-hide-small">
+    <button class="w3-button" title="Notifications">Dropdown <i class="fa fa-caret-down"></i></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+      <a href="#" class="w3-bar-item w3-button">Link</a>
+      <a href="#" class="w3-bar-item w3-button">Link</a>
+      <a href="#" class="w3-bar-item w3-button">Link</a>
+    </div> -->
+  </div>
+  <!-- <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal" title="Search"><i class="fa fa-search"></i></a> -->
+ </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+    <a href="#team" class="w3-bar-item w3-button">About Me</a>
+    <a href="#work" class="w3-bar-item w3-button">Work</a>
+    <a href="#pricing" class="w3-bar-item w3-button">Price</a>
+    <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+    <a href="#" class="w3-bar-item w3-button">Search</a>
   </div>
 </div>
 
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Jon Harmon.</h1>
-    <p>Freelance Developer.</p>
-    <img src="/img/bio-pic.png" alt="bio pic" class="w3-image" width="400" height="600">
-  </header>
+<!-- Image Header -->
+<div class="w3-display-container w3-animate-opacity">
+  <img src="img/coding-wallpaper.jpeg" alt="coding-wallpaper" style="width:100%;min-height:350px;max-height:600px;">
+  <div class="w3-container w3-display-bottomleft w3-margin-bottom">  
+    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-xlarge w3-theme w3-hover-teal" title="Go To W3.CSS">Really Big Button</button>
+  </div>
+</div>
 
-  <!-- About Section -->
-  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">Jon Harmon</h2>
+<!-- Modal -->
+<div id="id01" class="w3-modal w3-animate-opacity" style="display: flex; align-items: flex-start; justify-content: center; padding-top: 5vh;">
+  <div class="w3-modal-content w3-card-4 w3-animate-top" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); max-width: 600px; width: 90%;">
+    <header class="w3-container w3-teal w3-display-container" style="border-radius: 15px 15px 0 0; background: linear-gradient(45deg, #656e68,); color: white; text-align: center;">
+      <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-teal w3-display-topright w3-hover-opacity w3-round-full">
+        <i class="fa fa-remove"></i>
+      </span>
+      <!-- Modal Logo Image -->
+      <img src="img/harmonix-cover-photo copy.webp" alt="Harmonix Logo" class="modal-image" style="width: 80%; max-width: 400px; height: auto; margin: 20px auto;" />
+    </header>
+    <div class="w3-container" style="padding: 20px; text-align: center;">
+      <!-- Title Section -->
+      <h2 style="font-size: 24px; color: #333; font-weight: bold; margin-bottom: 10px;">Welcome to Harmonix Web Solutions</h2>
+      <!-- Paragraph Section -->
+      <p style="font-size: 18px; color: #555; line-height: 1.6; margin: 0 0 20px;">We provide cutting-edge web design and development services to help bring your vision to life. Let's create something amazing together!</p>
+      <!-- Footer Section -->
+      <footer class="w3-container" style="padding: 10px; text-align: center;">
+        <a href="https://harmonixwebsolutions.com" class="w3-teal w3-button w3-hover-shadow-xlarge" style="font-size: 18px; padding: 12px 24px; background: linear-gradient(45deg, #61ffdd, #4bedff); color: rgb(0, 0, 0); border-radius: 5px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+          Go to Harmonix Web Solutions
+        </a>
+      </footer>
+    </div>
+  </div>
+</div>
+
+
+<!-- Team Container -->
+<div class="w3-container w3-padding-64 w3-left-align" id="team">
+
+<div class="w3-row">
+  <!-- First Row -->
+  <div class="w3-half w3-center">
+    <img src="img/bio-pic.png" alt="bio-pic" style="width:45%" class="w3-circle w3-hover-opacity">
+  </div>
+  <div class="w3-half">  
+  </div>
+
+  <div class="w3-content w3-padding-64 w3-text-grey">
+    <h1 class="w3-text-dark-grey">About Me</h1>
     <hr style="width:200px" class="w3-opacity">
-    <p>I apply my expertise in Business, Web Development, and creative thinking to create successful applications and websites that address real-world issues for real people.
-      I focus on designing solutions that meet the ideal balance of user needs, project goals, and technical feasibility. 
-      I am a passionate and skilled Web Developer dedicated to creating responsive, 
+    <p class="w3-large">
+      I apply my expertise in Business, Web Development, and creative thinking to create successful applications and websites 
+      that address real-world issues for real people. I focus on designing solutions that meet the ideal balance of user needs,
+      project goals, and technical feasibility. I am a passionate and skilled Web Developer dedicated to creating responsive, 
       visually appealing and user-friendly websites and applications using modern web development frameworks and tools.
-
     </p>
-    <h3 class="w3-padding-16 w3-text-light-grey">Experience</h3>
-    <p class="w3-wide">Front-End Experience</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
-    </div>
-    <p class="w3-wide">Web Design</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
-    </div>
-    <p class="w3-wide">Mobile App Development</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-    </div><br>
-    
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">6</span><br>
-        Coding Languages I Know
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">2</span><br>
-        Case Studies Done
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">100%</span><br>
-        Percent I Give on Projects
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">2</span><br>
-        On-Going Projects
-      </div>
-    </div>
+  </div>
+  </div>
 
-    <a href="/added-docs/PortfolioProfile.pdf" download="your_resume.pdf" target="_blank">
-      <button class="w3-button w3-light-grey w3-padding-large w3-section">
-        <i class="fa fa-download"></i> Download Resume (PDF)
+<!-- Work Row -->
+<div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
+
+  <div class="w3-quarter">
+    <h2>My Work</h2>
+    <p>Here are some of my projects that I've worked on.</p>
+    <a href="/added-docs/PortfolioProfile.pdf" download="Jon_Harmon_Resume.pdf">
+      <button class="w3-button w3-light-grey w3-margin-top">
+        <i class="fa fa-download"></i> Download My Resume
       </button>
     </a>
-        
-    <h3 class="w3-padding-16 w3-text-light-grey">Service Packages</h3>
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half w3-margin-bottom">
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Creation</li>
-          <li class="w3-padding-16">Custom Website Design</li>
-          <li class="w3-padding-16">Responsive Web Development</li>
-          <li class="w3-padding-16">Web Hosting Setup</li>
-          <li class="w3-padding-16">Business Oriented Web Solutions </li>
-          <!-- <li class="w3-padding-16"> -->
-            <!-- <h2>$50 per hour</h2>
-            <span class="w3-opacity"></span> -->
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <!-- <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button> -->
-          </li>
-        </ul>
-      </div>
-
-      <div class="w3-half">
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Managing</li>
-          <li class="w3-padding-16">Regular Maintenance</li>
-          <li class="w3-padding-16">Content management</li>
-          <li class="w3-padding-16">Performance Optimization</li>
-          <li class="w3-padding-16">Technical Support</li>
-          <!-- <li class="w3-padding-16"> -->
-            <!-- <h2>$ 200 per month</h2> -->
-            <span class="w3-opacity"></span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <!-- <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button> -->
-          </li>
-        </ul>
-      </div>
-    <!-- End Grid/Pricing tables -->
-    </div>
-  </div>
-  
-  <!-- Portfolio Section -->
-  <div class="w3-padding-64 w3-content" id="photos">
-    <h2 class="w3-text-light-grey">Case Studies</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <!-- Grid for photos -->
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half">
-        <a href="pokedex.html">
-          <img src="img/pokeball.png" style="width:50%" alt="Pokedex">
-        </a>
-        <!-- <img src="/w3images/rocks.jpg" style="width:100%">
-        <img src="/w3images/sailboat.jpg" style="width:100%"> -->
-      </div>
-    
-      <div class="w3-half">
-        <a href="to-do.html">
-          <img src="img/to-do.png" style="width:50%" alt="To-Do List">
-        </a>
-        <!-- <img src="/w3images/chef.jpg" style="width:100%">
-        <img src="img/pokeball.png" style="width:100%">
-        <img src="/w3images/p6.jpg" style="width:100%"> -->
-      </div>
-    <!-- End photo grid -->
-    </div>
-    <!-- End Portfolio Section -->
-      <!-- End Portfolio Section -->
   </div>
 
-<!-- Contact Section -->
-<div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-  <h2 class="w3-text-light-grey">Contact Me</h2>
-  <hr style="width:200px" class="w3-opacity">
-
-  <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Indianapolis, Indiana</p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> Phone: Given upon request</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: Jtharmon10@gmail.com</p>
+  <div class="w3-quarter">
+    <a href="pokedex.html">
+      <img src="img/pokeball.png" alt="Customer 1" style="width:100%" class="w3-hover-opacity">
+    </a>
   </div>
-  <br>
-  <p>Let's get in touch. Send me a message:</p>
 
-  <form action="mailto:jtharmon10@gmail.com" method="post" enctype="text/plain">
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
-      <p><textarea class="w3-input w3-padding-16" placeholder="Your Message" required name="Message"></textarea></p>
-      <p>
-          <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-              <i class="fa fa-paper-plane"></i> SEND MESSAGE
-          </button>
-      </p>
-  </form>
-  <!-- End Contact Section -->
+  <div class="w3-quarter">
+    <a href="to-do.html">
+      <img src="img/to-do.png" alt="Customer 1" style="width:100%" class="w3-hover-opacity">
+    </a>
+  </div>
+
+  <div class="w3-quarter">
+    <a href="">
+      <img src="img/coming-soon.jpg" alt="Customer 1" style="width:100%" class="w3-hover-opacity">
+    </a>
+  </div>
+
 </div>
 
-    <!-- Footer -->
-    <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-      <a href="https://www.facebook.com/jon.harmon.125/" target="_blank" class="w3-hover-opacity">
-          <i class="fa fa-facebook-official"></i>
-      </a>
-      <a href="https://www.instagram.com/your_instagram_profile" target="_blank" class="w3-hover-opacity">
-          <i class="fa fa-instagram"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/jonathan-harmon-1bab03150/" target="_blank" class="w3-hover-opacity">
-          <i class="fa fa-linkedin"></i>
-      </a>
-  </footer>
-  
-<!-- END PAGE CONTENT -->
+<!-- Container -->
+<div class="w3-container" style="position:relative">
+  <a onclick="w3_open()" class="w3-button w3-xlarge w3-circle w3-teal"
+  style="position:absolute;top:-28px;right:24px">+</a>
 </div>
+
+<!-- Pricing Row -->
+<!-- <div class="w3-row-padding w3-center w3-padding-64" id="pricing">
+    <h2>PRICING</h2>
+    <p>Choose a pricing plan that fits your needs.</p><br>
+    <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-hover-shadow">
+        <li class="w3-theme">
+          <p class="w3-xlarge">Basic</p>
+        </li>
+        <li class="w3-padding-16"><b>10GB</b> Storage</li>
+        <li class="w3-padding-16"><b>10</b> Emails</li>
+        <li class="w3-padding-16"><b>10</b> Domains</li>
+        <li class="w3-padding-16"><b>Endless</b> Support</li>
+        <li class="w3-padding-16">
+          <h2 class="w3-wide"><i class="fa fa-usd"></i> 10</h2>
+          <span class="w3-opacity">per month</span>
+        </li>
+        <li class="w3-theme-l5 w3-padding-24">
+          <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Sign Up</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-hover-shadow">
+        <li class="w3-theme-l2">
+          <p class="w3-xlarge">Pro</p>
+        </li>
+        <li class="w3-padding-16"><b>25GB</b> Storage</li>
+        <li class="w3-padding-16"><b>25</b> Emails</li>
+        <li class="w3-padding-16"><b>25</b> Domains</li>
+        <li class="w3-padding-16"><b>Endless</b> Support</li>
+        <li class="w3-padding-16">
+          <h2 class="w3-wide"><i class="fa fa-usd"></i> 25</h2>
+          <span class="w3-opacity">per month</span>
+        </li>
+        <li class="w3-theme-l5 w3-padding-24">
+          <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Sign Up</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-hover-shadow">
+        <li class="w3-theme">
+          <p class="w3-xlarge">Premium</p>
+        </li>
+        <li class="w3-padding-16"><b>50GB</b> Storage</li>
+        <li class="w3-padding-16"><b>50</b> Emails</li>
+        <li class="w3-padding-16"><b>50</b> Domains</li>
+        <li class="w3-padding-16"><b>Endless</b> Support</li>
+        <li class="w3-padding-16">
+          <h2 class="w3-wide"><i class="fa fa-usd"></i> 50</h2>
+          <span class="w3-opacity">per month</span>
+        </li>
+        <li class="w3-theme-l5 w3-padding-24">
+          <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Sign Up</button>
+        </li>
+      </ul>
+    </div>
+</div> -->
+
+<!-- Contact Container -->
+<!-- <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+  <div class="w3-row">
+    <div class="w3-col m5">
+    <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
+      <h3>Address</h3>
+      <p>Swing by for a cup of coffee, or whatever.</p>
+      <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Chicago, US</p>
+      <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +00 1515151515</p>
+      <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  test@test.com</p>
+    </div>
+    <div class="w3-col m7">
+      <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">
+      <div class="w3-section">      
+        <label>Name</label>
+        <input class="w3-input" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">      
+        <label>Email</label>
+        <input class="w3-input" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">      
+        <label>Message</label>
+        <input class="w3-input" type="text" name="Message" required>
+      </div>  
+      <input class="w3-check" type="checkbox" checked name="Like">
+      <label>I Like it!</label>
+      <button type="submit" class="w3-button w3-right w3-theme">Send</button>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<!-- Image of location/map -->
+<img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%;">
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
+  <h4 style="font-size: 1.8em; margin-bottom: 20px;">Follow Me On</h4>
+
+  <!-- Social Media Buttons -->
+  <div style="margin-bottom: 20px;">
+    <a class="w3-button w3-large w3-teal" href="https://x.com/jtharmon10" target="_blank" title="Twitter">
+      <i class="fa fa-twitter"></i>
+    </a>
+    <a class="w3-button w3-large w3-teal w3-hide-small" href="https://www.linkedin.com/in/jonathan-harmon-1bab03150/" target="_blank" title="LinkedIn">
+      <i class="fa fa-linkedin"></i>
+    </a>
+  </div>
+
+  <!-- Go to Top Button -->
+  <div style="position:relative; bottom:50px; z-index:1;" class="w3-tooltip w3-right">
+    <span class="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>
+    <a class="w3-button w3-theme w3-xlarge" href="#myPage" style="border-radius:50%; padding: 10px 15px;">
+      <i class="fa fa-chevron-circle-up"></i>
+    </a>
+  </div>
+</footer>
+
+<script>
+// Script for side navigation
+function w3_open() {
+  var x = document.getElementById("mySidebar");
+  x.style.width = "300px";
+  x.style.paddingTop = "10%";
+  x.style.display = "block";
+}
+
+// Close side navigation
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
 
 </body>
 </html>
