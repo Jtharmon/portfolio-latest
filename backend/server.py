@@ -1,25 +1,19 @@
-from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pymongo import MongoClient
 from bson import ObjectId
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Optional, List
 import os
 import uuid
-import json
 from pydantic import BaseModel, Field
-import jwt
-from passlib.context import CryptContext
 
 # Environment variables
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
-ALGORITHM = "HS256"
 
 # Initialize FastAPI app
-app = FastAPI(title="Portfolio Blog API", version="1.0.0")
+app = FastAPI(title="Simple Portfolio Blog API", version="1.0.0")
 
 # CORS middleware
 app.add_middleware(
@@ -34,10 +28,6 @@ app.add_middleware(
 client = MongoClient(MONGO_URL)
 db = client.portfolio_blog
 
-# Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-security = HTTPBearer()
-
 # Create uploads directory
 os.makedirs("uploads", exist_ok=True)
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
@@ -50,7 +40,7 @@ class BlogPost(BaseModel):
     tags: List[str] = []
     category: str
     featured_image: Optional[str] = None
-    published: bool = False
+    published: bool = True
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -64,15 +54,6 @@ class AIProject(BaseModel):
     image_url: Optional[str] = None
     featured: bool = False
     created_at: Optional[datetime] = None
-
-class User(BaseModel):
-    username: str
-    email: str
-    password: str
-
-class UserLogin(BaseModel):
-    username: str
-    password: str
 
 class BlogPostResponse(BaseModel):
     id: str
@@ -98,76 +79,7 @@ class AIProjectResponse(BaseModel):
     featured: bool
     created_at: datetime
 
-# Utility functions
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
-
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
-
-async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    try:
-        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise HTTPException(status_code=401, detail="Invalid authentication credentials")
-        return username
-    except jwt.PyJWTError:
-        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
-
-# Initialize default admin user
-@app.on_event("startup")
-async def create_admin_user():
-    admin_exists = db.users.find_one({"username": "admin"})
-    if not admin_exists:
-        admin_user = {
-            "username": "admin",
-            "email": "admin@portfolio.com",
-            "password": hash_password("admin123"),
-            "created_at": datetime.utcnow()
-        }
-        db.users.insert_one(admin_user)
-        print("Default admin user created: admin/admin123")
-
 # API Routes
-
-# Authentication Routes
-@app.post("/api/auth/login")
-async def login(user_login: UserLogin):
-    user = db.users.find_one({"username": user_login.username})
-    if not user or not verify_password(user_login.password, user["password"]):
-        raise HTTPException(status_code=401, detail="Incorrect username or password")
-    
-    access_token_expires = timedelta(days=30)
-    access_token = create_access_token(
-        data={"sub": user["username"]}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
-
-@app.post("/api/auth/register")
-async def register(user: User):
-    existing_user = db.users.find_one({"$or": [{"username": user.username}, {"email": user.email}]})
-    if existing_user:
-        raise HTTPException(status_code=400, detail="Username or email already registered")
-    
-    user_doc = {
-        "username": user.username,
-        "email": user.email,
-        "password": hash_password(user.password),
-        "created_at": datetime.utcnow()
-    }
-    result = db.users.insert_one(user_doc)
-    return {"message": "User registered successfully", "user_id": str(result.inserted_id)}
 
 # Blog Post Routes
 @app.get("/api/posts", response_model=List[BlogPostResponse])
@@ -217,11 +129,10 @@ async def get_blog_post(post_id: str):
         raise HTTPException(status_code=404, detail="Post not found")
 
 @app.post("/api/posts", response_model=BlogPostResponse)
-async def create_blog_post(post: BlogPost, current_user: str = Depends(get_current_user)):
+async def create_blog_post(post: BlogPost):
     post_doc = post.dict()
     post_doc["created_at"] = datetime.utcnow()
     post_doc["updated_at"] = datetime.utcnow()
-    post_doc["author"] = current_user
     
     result = db.blog_posts.insert_one(post_doc)
     
@@ -241,7 +152,7 @@ async def create_blog_post(post: BlogPost, current_user: str = Depends(get_curre
     )
 
 @app.put("/api/posts/{post_id}", response_model=BlogPostResponse)
-async def update_blog_post(post_id: str, post: BlogPost, current_user: str = Depends(get_current_user)):
+async def update_blog_post(post_id: str, post: BlogPost):
     try:
         post_doc = post.dict()
         post_doc["updated_at"] = datetime.utcnow()
@@ -271,7 +182,7 @@ async def update_blog_post(post_id: str, post: BlogPost, current_user: str = Dep
         raise HTTPException(status_code=404, detail="Post not found")
 
 @app.delete("/api/posts/{post_id}")
-async def delete_blog_post(post_id: str, current_user: str = Depends(get_current_user)):
+async def delete_blog_post(post_id: str):
     try:
         result = db.blog_posts.delete_one({"_id": ObjectId(post_id)})
         if result.deleted_count == 0:
@@ -326,10 +237,9 @@ async def get_ai_project(project_id: str):
         raise HTTPException(status_code=404, detail="Project not found")
 
 @app.post("/api/projects", response_model=AIProjectResponse)
-async def create_ai_project(project: AIProject, current_user: str = Depends(get_current_user)):
+async def create_ai_project(project: AIProject):
     project_doc = project.dict()
     project_doc["created_at"] = datetime.utcnow()
-    project_doc["author"] = current_user
     
     result = db.ai_projects.insert_one(project_doc)
     
@@ -348,7 +258,7 @@ async def create_ai_project(project: AIProject, current_user: str = Depends(get_
     )
 
 @app.put("/api/projects/{project_id}", response_model=AIProjectResponse)
-async def update_ai_project(project_id: str, project: AIProject, current_user: str = Depends(get_current_user)):
+async def update_ai_project(project_id: str, project: AIProject):
     try:
         project_doc = project.dict()
         
@@ -377,7 +287,7 @@ async def update_ai_project(project_id: str, project: AIProject, current_user: s
         raise HTTPException(status_code=404, detail="Project not found")
 
 @app.delete("/api/projects/{project_id}")
-async def delete_ai_project(project_id: str, current_user: str = Depends(get_current_user)):
+async def delete_ai_project(project_id: str):
     try:
         result = db.ai_projects.delete_one({"_id": ObjectId(project_id)})
         if result.deleted_count == 0:
@@ -388,7 +298,7 @@ async def delete_ai_project(project_id: str, current_user: str = Depends(get_cur
 
 # File upload route
 @app.post("/api/upload")
-async def upload_file(file: UploadFile = File(...), current_user: str = Depends(get_current_user)):
+async def upload_file(file: UploadFile = File(...)):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="Only image files are allowed")
     
