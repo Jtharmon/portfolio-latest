@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { Menu, X, User, LogOut, Settings, BookOpen, Briefcase, Home, Mail } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, User, BookOpen, Briefcase, Home, Mail, Plus, Edit } from 'lucide-react';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const [isCreateMenuOpen, setIsCreateMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-    setIsUserMenuOpen(false);
-  };
 
   const navItems = [
     { name: 'Home', href: '/', icon: Home },
@@ -22,6 +13,11 @@ function Navbar() {
     { name: 'Projects', href: '/projects', icon: Briefcase },
     { name: 'About', href: '/about', icon: User },
     { name: 'Contact', href: '/contact', icon: Mail },
+  ];
+
+  const createItems = [
+    { name: 'New Post', href: '/create-post', icon: BookOpen },
+    { name: 'New Project', href: '/create-project', icon: Briefcase },
   ];
 
   const isActivePath = (path) => {
@@ -66,49 +62,37 @@ function Navbar() {
             })}
           </div>
 
-          {/* User Menu */}
+          {/* Create Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            {user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-200"
-                >
-                  <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-white" />
-                  </div>
-                  <span>Admin</span>
-                </button>
-
-                {/* Dropdown Menu */}
-                {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                    <Link
-                      to="/admin"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      onClick={() => setIsUserMenuOpen(false)}
-                    >
-                      <Settings className="w-4 h-4 mr-3" />
-                      Dashboard
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      <LogOut className="w-4 h-4 mr-3" />
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                className="btn-primary text-sm"
+            <div className="relative">
+              <button
+                onClick={() => setIsCreateMenuOpen(!isCreateMenuOpen)}
+                className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-all duration-200"
               >
-                Login
-              </Link>
-            )}
+                <Plus className="w-4 h-4" />
+                <span>Create</span>
+              </button>
+
+              {/* Dropdown Menu */}
+              {isCreateMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+                  {createItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsCreateMenuOpen(false)}
+                      >
+                        <Icon className="w-4 h-4 mr-3" />
+                        {item.name}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -146,37 +130,23 @@ function Navbar() {
               );
             })}
             
-            {user ? (
-              <>
-                <Link
-                  to="/admin"
-                  className="flex items-center space-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Settings className="w-5 h-5" />
-                  <span>Dashboard</span>
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setIsMenuOpen(false);
-                  }}
-                  className="flex items-center space-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 w-full text-left"
-                >
-                  <LogOut className="w-5 h-5" />
-                  <span>Logout</span>
-                </button>
-              </>
-            ) : (
-              <Link
-                to="/login"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-base font-medium text-primary-600 hover:bg-primary-50"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <User className="w-5 h-5" />
-                <span>Login</span>
-              </Link>
-            )}
+            <div className="border-t border-gray-200 mt-4 pt-4">
+              <p className="px-3 py-2 text-sm font-medium text-gray-500">Create Content</p>
+              {createItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
