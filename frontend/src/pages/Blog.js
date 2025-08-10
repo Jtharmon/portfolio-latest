@@ -305,34 +305,34 @@ function Blog() {
                       </p>
                       
                       <div className="flex items-center justify-between">
-                        <div className="flex flex-wrap gap-2">
-                          {post.tags.slice(0, 2).map((tag) => (
-                            <span 
-                              key={tag}
-                              className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                          {post.tags.length > 2 && (
-                            <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">
-                              +{post.tags.length - 2} more
-                            </span>
-                          )}
-                        </div>
-                        
-              <div className="flex items-center space-x-2 ml-4">
-                <Link
-                  to={`/edit-post/${post.id}`}
-                  className="inline-flex items-center px-3 py-1 bg-primary-50 text-primary-600 text-sm font-medium rounded-full hover:bg-primary-100 transition-colors"
-                >
-                  <Edit className="w-3 h-3 mr-1" />
-                  Edit
-                </Link>
-                
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
-              </div>
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.slice(0, 2).map((tag) => (
+                        <span 
+                          key={tag}
+                          className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      {post.tags.length > 2 && (
+                        <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">
+                          +{post.tags.length - 2} more
+                        </span>
+                      )}
                     </div>
+                    
+                    <div className="flex items-center space-x-2 ml-4">
+                      <Link
+                        to={`/edit-post/${post.id}`}
+                        className="inline-flex items-center px-3 py-1 bg-primary-50 text-primary-600 text-sm font-medium rounded-full hover:bg-primary-100 transition-colors"
+                      >
+                        <Edit className="w-3 h-3 mr-1" />
+                        Edit
+                      </Link>
+                      
+                      <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
+                    </div>
+                  </div>
                   </Link>
                 ))}
               </div>
