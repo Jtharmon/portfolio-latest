@@ -174,13 +174,22 @@ function BlogPost() {
                 ))}
               </div>
 
-              <button
-                onClick={handleShare}
-                className="inline-flex items-center px-4 py-2 text-gray-600 hover:text-gray-900 font-medium transition-colors"
-              >
-                <Share2 className="w-4 h-4 mr-2" />
-                Share
-              </button>
+              <div className="flex items-center space-x-3">
+                <Link
+                  to={`/edit-post/${post.id}`}
+                  className="inline-flex items-center px-4 py-2 bg-primary-50 text-primary-600 font-medium rounded-lg hover:bg-primary-100 transition-colors"
+                >
+                  <Edit className="w-4 h-4 mr-2" />
+                  Edit Post
+                </Link>
+                <button
+                  onClick={handleShare}
+                  className="inline-flex items-center px-4 py-2 text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                >
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Share
+                </button>
+              </div>
             </div>
           </div>
         </div>
