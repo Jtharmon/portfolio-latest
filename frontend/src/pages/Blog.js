@@ -333,7 +333,8 @@ function Blog() {
                       <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                     </div>
                   </div>
-                  </Link>
+                </div>
+              </Link>
                 ))}
               </div>
             )}
