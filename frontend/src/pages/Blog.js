@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Search, Calendar, Tag, ChevronRight } from 'lucide-react';
+import { Search, Calendar, Tag, ChevronRight, Edit } from 'lucide-react';
 import axios from 'axios';
 
 function Blog() {
