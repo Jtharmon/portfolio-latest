@@ -34,7 +34,14 @@ function SecretKeyModal({ isOpen, onClose, onSuccess, title = "Enter Blog Secret
       }
     } catch (error) {
       console.error('Error verifying secret:', error);
-      toast.error('Invalid secret key');
+      toast.error('Invalid secret key. Please check and try again.', {
+        duration: 5000,
+        style: {
+          background: '#fee2e2',
+          color: '#dc2626',
+          border: '1px solid #fecaca',
+        },
+      });
     } finally {
       setLoading(false);
     }
