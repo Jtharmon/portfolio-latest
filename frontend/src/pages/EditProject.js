@@ -16,7 +16,8 @@ function EditProject() {
     demo_url: '',
     github_url: '',
     image_url: '',
-    featured: false
+    featured: false,
+    blog_secret: ''
   });
   const [techInput, setTechInput] = useState('');
   const [loading, setLoading] = useState(true);
