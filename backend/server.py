@@ -351,7 +351,7 @@ async def verify_secret(secret_data: dict):
 
 # File upload route (protected)
 @app.post("/api/upload")
-async def upload_file(file: UploadFile = File(...), blog_secret: str = ""):
+async def upload_file(file: UploadFile = File(...), blog_secret: str = Form("")):
     # Check authorization
     check_blog_authorization(blog_secret)
     
