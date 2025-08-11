@@ -120,6 +120,11 @@ function CreateProject() {
       return;
     }
 
+    if (!formData.blog_secret.trim()) {
+      toast.error('Please enter your blog secret key');
+      return;
+    }
+
     try {
       setLoading(true);
       const response = await axios.post(`${API_URL}/api/projects`, formData);
@@ -128,7 +133,11 @@ function CreateProject() {
       navigate(`/projects/${response.data.id}`);
     } catch (error) {
       console.error('Error creating project:', error);
-      toast.error('Failed to create project');
+      if (error.response?.status === 401) {
+        toast.error('Invalid blog secret key');
+      } else {
+        toast.error('Failed to create project');
+      }
     } finally {
       setLoading(false);
     }
