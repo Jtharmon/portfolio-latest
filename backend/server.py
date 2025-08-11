@@ -291,8 +291,13 @@ async def create_ai_project(project: AIProject):
 
 @app.put("/api/projects/{project_id}", response_model=AIProjectResponse)
 async def update_ai_project(project_id: str, project: AIProject):
+    # Check authorization
+    check_blog_authorization(project.blog_secret)
+    
     try:
         project_doc = project.dict()
+        # Remove blog_secret from stored data
+        del project_doc["blog_secret"]
         
         result = db.ai_projects.update_one(
             {"_id": ObjectId(project_id)}, 
@@ -319,7 +324,10 @@ async def update_ai_project(project_id: str, project: AIProject):
         raise HTTPException(status_code=404, detail="Project not found")
 
 @app.delete("/api/projects/{project_id}")
-async def delete_ai_project(project_id: str):
+async def delete_ai_project(project_id: str, blog_secret: str):
+    # Check authorization
+    check_blog_authorization(blog_secret)
+    
     try:
         result = db.ai_projects.delete_one({"_id": ObjectId(project_id)})
         if result.deleted_count == 0:
