@@ -1,10 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Save, Upload, X, Plus } from 'lucide-react';
+import { ArrowLeft, Save, Upload, X, Plus, Lock } from 'lucide-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useBlogAuth } from '../context/BlogAuthContext';
+import SecretKeyModal from '../components/SecretKeyModal';
 
 function CreatePost() {
   const [formData, setFormData] = useState({
@@ -14,17 +16,25 @@ function CreatePost() {
     category: 'AI & Machine Learning',
     tags: [],
     featured_image: '',
-    published: true,
-    blog_secret: ''
+    published: true
   });
   const [tagInput, setTagInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const { isAuthenticated, secretKey, authenticate } = useBlogAuth();
 
   const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+
+  // Redirect to authentication if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setShowAuthModal(true);
+    }
+  }, [isAuthenticated]);
 
   const categories = [
     'AI & Machine Learning',
@@ -93,14 +103,14 @@ function CreatePost() {
   const handleImageUpload = async (file) => {
     if (!file) return;
 
-    if (!formData.blog_secret.trim()) {
-      toast.error('Please enter your blog secret key first');
+    if (!isAuthenticated) {
+      toast.error('Please authenticate first');
       return;
     }
 
     const uploadFormData = new FormData();
     uploadFormData.append('file', file);
-    uploadFormData.append('blog_secret', formData.blog_secret);
+    uploadFormData.append('blog_secret', secretKey);
 
     try {
       setUploading(true);
@@ -119,7 +129,8 @@ function CreatePost() {
     } catch (error) {
       console.error('Error uploading image:', error);
       if (error.response?.status === 401) {
-        toast.error('Invalid blog secret key for image upload');
+        toast.error('Authentication expired. Please re-authenticate.');
+        setShowAuthModal(true);
       } else {
         toast.error('Failed to upload image');
       }
@@ -136,21 +147,24 @@ function CreatePost() {
       return;
     }
 
-    if (!formData.blog_secret.trim()) {
-      toast.error('Please enter your blog secret key');
+    if (!isAuthenticated) {
+      toast.error('Please authenticate first');
+      setShowAuthModal(true);
       return;
     }
 
     try {
       setLoading(true);
-      const response = await axios.post(`${API_URL}/api/posts`, formData);
+      const submitData = { ...formData, blog_secret: secretKey };
+      const response = await axios.post(`${API_URL}/api/posts`, submitData);
       
       toast.success('Post created successfully!');
       navigate(`/blog/${response.data.id}`);
     } catch (error) {
       console.error('Error creating post:', error);
       if (error.response?.status === 401) {
-        toast.error('Invalid blog secret key');
+        toast.error('Authentication expired. Please re-authenticate.');
+        setShowAuthModal(true);
       } else {
         toast.error('Failed to create post');
       }
@@ -159,245 +173,276 @@ function CreatePost() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header with gradient */}
-      <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <Link 
-                to="/blog" 
-                className="flex items-center space-x-2 px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all duration-200"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back to Blog</span>
-              </Link>
-              <div>
-                <h1 className="font-display text-2xl font-bold">
-                  Create New Post
-                </h1>
-                <p className="text-primary-100">Share your thoughts and insights</p>
-              </div>
-            </div>
-            
-            <button
-              onClick={handleSubmit}
-              disabled={loading || !formData.title.trim()}
-              className="bg-white text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-            >
-              {loading ? (
-                <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-              ) : (
-                <Save className="w-4 h-4" />
-              )}
-              <span>Publish Post</span>
-            </button>
+  const handleAuthSuccess = (key) => {
+    authenticate(key);
+    setShowAuthModal(false);
+  };
+
+  const handleAuthClose = () => {
+    setShowAuthModal(false);
+    if (!isAuthenticated) {
+      navigate('/blog');
+    }
+  };
+
+  if (!isAuthenticated && !showAuthModal) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-8 h-8 text-white" />
           </div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Authentication Required</h2>
+          <p className="text-gray-600 mb-6">Please authenticate to create blog posts.</p>
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="btn-primary"
+          >
+            Authenticate
+          </button>
         </div>
       </div>
+    );
+  }
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-3 space-y-8">
-            {/* Title */}
-            <div className="card p-8 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <label htmlFor="title" className="block text-sm font-semibold text-gray-700 mb-3">
-                Post Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                required
-                value={formData.title}
-                onChange={handleChange}
-                className="w-full px-4 py-4 text-2xl font-bold border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200"
-                placeholder="Enter an engaging title..."
-              />
-            </div>
-
-            {/* Excerpt */}
-            <div className="card p-8 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <label htmlFor="excerpt" className="block text-sm font-semibold text-gray-700 mb-3">
-                Excerpt
-              </label>
-              <textarea
-                id="excerpt"
-                name="excerpt"
-                rows={3}
-                value={formData.excerpt}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 resize-none"
-                placeholder="A brief summary of your post..."
-              />
-            </div>
-
-            {/* Content Editor */}
-            <div className="card p-8 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <label className="block text-sm font-semibold text-gray-700 mb-4">
-                Content
-              </label>
-              <div className="prose-editor rounded-xl overflow-hidden border-2 border-gray-200 focus-within:border-primary-500 transition-all duration-200">
-                <ReactQuill
-                  theme="snow"
-                  value={formData.content}
-                  onChange={handleContentChange}
-                  modules={quillModules}
-                  formats={quillFormats}
-                  style={{ height: '400px', marginBottom: '50px' }}
-                  placeholder="Start writing your post content here..."
-                />
+  return (
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        {/* Header with gradient */}
+        <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-4">
+                <Link 
+                  to="/blog" 
+                  className="flex items-center space-x-2 px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all duration-200"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Back to Blog</span>
+                </Link>
+                <div>
+                  <h1 className="font-display text-2xl font-bold">
+                    Create New Post
+                  </h1>
+                  <div className="flex items-center space-x-2">
+                    <p className="text-primary-100">Share your thoughts and insights</p>
+                    <div className="flex items-center space-x-1 text-green-300">
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <span className="text-xs">Authenticated</span>
+                    </div>
+                  </div>
+                </div>
               </div>
+              
+              <button
+                onClick={handleSubmit}
+                disabled={loading || !formData.title.trim()}
+                className="bg-white text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+              >
+                {loading ? (
+                  <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  <Save className="w-4 h-4" />
+                )}
+                <span>Publish Post</span>
+              </button>
             </div>
           </div>
+        </div>
 
-          {/* Sidebar */}
-          <div className="space-y-8">
-            {/* Category & Settings */}
-            <div className="card p-6 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <h3 className="font-semibold text-gray-900 mb-4">Post Settings</h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="blog_secret" className="block text-sm font-medium text-gray-700 mb-2">
-                    Blog Secret Key *
-                  </label>
-                  <input
-                    type="password"
-                    id="blog_secret"
-                    name="blog_secret"
-                    required
-                    value={formData.blog_secret}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Enter your blog secret"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-3 space-y-8">
+              {/* Title */}
+              <div className="card p-8 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+                <label htmlFor="title" className="block text-sm font-semibold text-gray-700 mb-3">
+                  Post Title
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  required
+                  value={formData.title}
+                  onChange={handleChange}
+                  className="w-full px-4 py-4 text-2xl font-bold border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200"
+                  placeholder="Enter an engaging title..."
+                />
+              </div>
+
+              {/* Excerpt */}
+              <div className="card p-8 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+                <label htmlFor="excerpt" className="block text-sm font-semibold text-gray-700 mb-3">
+                  Excerpt
+                </label>
+                <textarea
+                  id="excerpt"
+                  name="excerpt"
+                  rows={3}
+                  value={formData.excerpt}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 resize-none"
+                  placeholder="A brief summary of your post..."
+                />
+              </div>
+
+              {/* Content Editor */}
+              <div className="card p-8 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+                <label className="block text-sm font-semibold text-gray-700 mb-4">
+                  Content
+                </label>
+                <div className="prose-editor rounded-xl overflow-hidden border-2 border-gray-200 focus-within:border-primary-500 transition-all duration-200">
+                  <ReactQuill
+                    theme="snow"
+                    value={formData.content}
+                    onChange={handleContentChange}
+                    modules={quillModules}
+                    formats={quillFormats}
+                    style={{ height: '400px', marginBottom: '50px' }}
+                    placeholder="Start writing your post content here..."
                   />
-                  <p className="text-xs text-gray-500 mt-1">This protects your blog from unauthorized posts</p>
-                </div>
-
-                <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-                    Category
-                  </label>
-                  <select
-                    id="category"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                  >
-                    {categories.map(category => (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="published"
-                    name="published"
-                    checked={formData.published}
-                    onChange={handleChange}
-                    className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-                  />
-                  <label htmlFor="published" className="ml-2 text-sm font-medium text-gray-700">
-                    Publish immediately
-                  </label>
                 </div>
               </div>
             </div>
 
-            {/* Featured Image */}
-            <div className="card p-6 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <h3 className="font-semibold text-gray-900 mb-4">Featured Image</h3>
-              
-              {formData.featured_image ? (
-                <div className="relative">
-                  <img 
-                    src={formData.featured_image} 
-                    alt="Featured" 
-                    className="w-full h-48 object-cover rounded-lg"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setFormData(prev => ({ ...prev, featured_image: '' }))}
-                    className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={(e) => handleImageUpload(e.target.files[0])}
-                    accept="image/*"
-                    className="hidden"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploading}
-                    className="w-full h-48 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-gray-400 transition-colors"
-                  >
-                    {uploading ? (
-                      <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin mb-2"></div>
-                    ) : (
-                      <Upload className="w-12 h-12 text-gray-400 mb-2" />
-                    )}
-                    <span className="text-sm text-gray-600">
-                      {uploading ? 'Uploading...' : 'Click to upload image'}
-                    </span>
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Tags */}
-            <div className="card p-6 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <h3 className="font-semibold text-gray-900 mb-4">Tags</h3>
-              
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
-                  onKeyPress={handleAddTag}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="Type a tag and press Enter"
-                />
+            {/* Sidebar */}
+            <div className="space-y-8">
+              {/* Category & Settings */}
+              <div className="card p-6 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+                <h3 className="font-semibold text-gray-900 mb-4">Post Settings</h3>
                 
-                {formData.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {formData.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center px-3 py-1 bg-primary-50 text-primary-700 text-sm font-medium rounded-full"
-                      >
-                        {tag}
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveTag(tag)}
-                          className="ml-2 w-4 h-4 text-primary-500 hover:text-primary-700"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                      Category
+                    </label>
+                    <select
+                      id="category"
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    >
+                      {categories.map(category => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="published"
+                      name="published"
+                      checked={formData.published}
+                      onChange={handleChange}
+                      className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                    />
+                    <label htmlFor="published" className="ml-2 text-sm font-medium text-gray-700">
+                      Publish immediately
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Featured Image */}
+              <div className="card p-6 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+                <h3 className="font-semibold text-gray-900 mb-4">Featured Image</h3>
+                
+                {formData.featured_image ? (
+                  <div className="relative">
+                    <img 
+                      src={formData.featured_image} 
+                      alt="Featured" 
+                      className="w-full h-48 object-cover rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, featured_image: '' }))}
+                      className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={(e) => handleImageUpload(e.target.files[0])}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading}
+                      className="w-full h-48 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-gray-400 transition-colors"
+                    >
+                      {uploading ? (
+                        <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin mb-2"></div>
+                      ) : (
+                        <Upload className="w-12 h-12 text-gray-400 mb-2" />
+                      )}
+                      <span className="text-sm text-gray-600">
+                        {uploading ? 'Uploading...' : 'Click to upload image'}
                       </span>
-                    ))}
+                    </button>
                   </div>
                 )}
               </div>
+
+              {/* Tags */}
+              <div className="card p-6 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+                <h3 className="font-semibold text-gray-900 mb-4">Tags</h3>
+                
+                <div className="space-y-3">
+                  <input
+                    type="text"
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyPress={handleAddTag}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Type a tag and press Enter"
+                  />
+                  
+                  {formData.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {formData.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center px-3 py-1 bg-primary-50 text-primary-700 text-sm font-medium rounded-full"
+                        >
+                          {tag}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveTag(tag)}
+                            className="ml-2 w-4 h-4 text-primary-500 hover:text-primary-700"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Authentication Modal */}
+      <SecretKeyModal
+        isOpen={showAuthModal}
+        onClose={handleAuthClose}
+        onSuccess={handleAuthSuccess}
+        title="Authenticate to Create Post"
+      />
+    </>
   );
 }
 
