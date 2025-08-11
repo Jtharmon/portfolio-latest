@@ -328,7 +328,14 @@ async def delete_ai_project(project_id: str):
     except Exception:
         raise HTTPException(status_code=404, detail="Project not found")
 
-# File upload route
+# Verification route
+@app.post("/api/verify-secret")
+async def verify_secret(secret_data: dict):
+    """Verify if the provided secret is correct"""
+    provided_secret = secret_data.get("blog_secret", "")
+    return {"valid": verify_blog_secret(provided_secret)}
+
+# File upload route (protected)
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
     if not file.content_type.startswith("image/"):
