@@ -170,21 +170,24 @@ function EditPost() {
       return;
     }
 
-    if (!formData.blog_secret.trim()) {
-      toast.error('Please enter your blog secret key');
+    if (!isAuthenticated) {
+      toast.error('Please authenticate first');
+      setShowAuthModal(true);
       return;
     }
 
     try {
       setSaving(true);
-      await axios.put(`${API_URL}/api/posts/${id}`, formData);
+      const submitData = { ...formData, blog_secret: secretKey };
+      await axios.put(`${API_URL}/api/posts/${id}`, submitData);
       
       toast.success('Post updated successfully!');
       navigate(`/blog/${id}`);
     } catch (error) {
       console.error('Error updating post:', error);
       if (error.response?.status === 401) {
-        toast.error('Invalid blog secret key');
+        toast.error('Authentication expired. Please re-authenticate.');
+        setShowAuthModal(true);
       } else {
         toast.error('Failed to update post');
       }
