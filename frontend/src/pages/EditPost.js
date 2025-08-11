@@ -114,8 +114,14 @@ function EditPost() {
   const handleImageUpload = async (file) => {
     if (!file) return;
 
+    if (!formData.blog_secret.trim()) {
+      toast.error('Please enter your blog secret key first');
+      return;
+    }
+
     const uploadFormData = new FormData();
     uploadFormData.append('file', file);
+    uploadFormData.append('blog_secret', formData.blog_secret);
 
     try {
       setUploading(true);
@@ -133,7 +139,11 @@ function EditPost() {
       toast.success('Image uploaded successfully');
     } catch (error) {
       console.error('Error uploading image:', error);
-      toast.error('Failed to upload image');
+      if (error.response?.status === 401) {
+        toast.error('Invalid blog secret key for image upload');
+      } else {
+        toast.error('Failed to upload image');
+      }
     } finally {
       setUploading(false);
     }
