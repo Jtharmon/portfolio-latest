@@ -455,10 +455,10 @@ class BlogAPITester:
             self.test_create_project_invalid_secret,
             self.test_update_project_valid_secret,
             self.test_update_project_invalid_secret,
-            self.test_delete_post_valid_secret,
-            self.test_delete_project_valid_secret,
+            self.test_get_individual_posts_projects,
             self.test_delete_with_invalid_secret,
-            self.test_get_individual_posts_projects
+            self.test_delete_post_valid_secret,
+            self.test_delete_project_valid_secret
         ]
         
         passed_tests = 0
