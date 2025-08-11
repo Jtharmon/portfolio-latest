@@ -44,6 +44,7 @@ class BlogPost(BaseModel):
     published: bool = True
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
+    blog_secret: str  # Secret key for authorization
 
 class AIProject(BaseModel):
     title: str
@@ -55,6 +56,7 @@ class AIProject(BaseModel):
     image_url: Optional[str] = None
     featured: bool = False
     created_at: Optional[datetime] = None
+    blog_secret: str  # Secret key for authorization
 
 class BlogPostResponse(BaseModel):
     id: str
