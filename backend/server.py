@@ -179,6 +179,9 @@ async def update_blog_post(post_id: str, post: BlogPost):
         post_doc = post.dict()
         # Remove blog_secret from stored data
         del post_doc["blog_secret"]
+        # Remove created_at to avoid overwriting it
+        if "created_at" in post_doc:
+            del post_doc["created_at"]
         post_doc["updated_at"] = datetime.utcnow()
         
         result = db.blog_posts.update_one(
