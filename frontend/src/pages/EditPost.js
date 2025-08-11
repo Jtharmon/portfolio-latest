@@ -147,6 +147,11 @@ function EditPost() {
       return;
     }
 
+    if (!formData.blog_secret.trim()) {
+      toast.error('Please enter your blog secret key');
+      return;
+    }
+
     try {
       setSaving(true);
       await axios.put(`${API_URL}/api/posts/${id}`, formData);
@@ -155,7 +160,11 @@ function EditPost() {
       navigate(`/blog/${id}`);
     } catch (error) {
       console.error('Error updating post:', error);
-      toast.error('Failed to update post');
+      if (error.response?.status === 401) {
+        toast.error('Invalid blog secret key');
+      } else {
+        toast.error('Failed to update post');
+      }
     } finally {
       setSaving(false);
     }
@@ -166,13 +175,22 @@ function EditPost() {
       return;
     }
 
+    if (!formData.blog_secret.trim()) {
+      toast.error('Please enter your blog secret key to delete');
+      return;
+    }
+
     try {
-      await axios.delete(`${API_URL}/api/posts/${id}`);
+      await axios.delete(`${API_URL}/api/posts/${id}?blog_secret=${encodeURIComponent(formData.blog_secret)}`);
       toast.success('Post deleted successfully');
       navigate('/blog');
     } catch (error) {
       console.error('Error deleting post:', error);
-      toast.error('Failed to delete post');
+      if (error.response?.status === 401) {
+        toast.error('Invalid blog secret key');
+      } else {
+        toast.error('Failed to delete post');
+      }
     }
   };
 
