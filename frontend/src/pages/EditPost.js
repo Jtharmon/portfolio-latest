@@ -17,16 +17,17 @@ function EditPost() {
     category: 'AI & Machine Learning',
     tags: [],
     featured_image: '',
-    published: false,
-    blog_secret: ''
+    published: false
   });
   const [tagInput, setTagInput] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const { isAuthenticated, secretKey, authenticate } = useBlogAuth();
 
   const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
