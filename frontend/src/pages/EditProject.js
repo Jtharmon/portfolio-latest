@@ -55,7 +55,8 @@ function EditProject() {
     try {
       setLoading(true);
       const response = await axios.get(`${API_URL}/api/projects/${id}`);
-      setFormData(response.data);
+      // Don't include blog_secret in loaded data for security
+      setFormData({ ...response.data, blog_secret: '' });
     } catch (error) {
       console.error('Error fetching project:', error);
       toast.error('Project not found');
