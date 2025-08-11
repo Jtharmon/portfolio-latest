@@ -45,13 +45,9 @@ function Navbar() {
   };
 
   const handleSecretSuccess = (secretKey) => {
-    console.log('handleSecretSuccess called with pending action:', pendingAction);
     if (pendingAction) {
-      console.log('Navigating to pending action:', `/${pendingAction}`);
       navigate(`/${pendingAction}`);
       setPendingAction(null);
-    } else {
-      console.log('No pending action found');
     }
   };
 
