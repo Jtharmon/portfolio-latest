@@ -25,7 +25,14 @@ function SecretKeyModal({ isOpen, onClose, onSuccess, title = "Enter Blog Secret
       });
 
       if (response.data.valid) {
-        toast.success('Access granted!');
+        toast.success('Access granted! Redirecting...', {
+          duration: 3000,
+          style: {
+            background: '#d1fae5',
+            color: '#065f46',
+            border: '1px solid #a7f3d0',
+          },
+        });
         onSuccess(secretKey);
         onClose();
         setSecretKey('');
