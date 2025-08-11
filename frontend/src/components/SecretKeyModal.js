@@ -117,9 +117,10 @@ function SecretKeyModal({ isOpen, onClose, onSuccess, title = "Enter Blog Secret
                   type={showPassword ? 'text' : 'password'}
                   value={secretKey}
                   onChange={(e) => setSecretKey(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200"
+                  className="w-full px-4 py-3 pr-12 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200"
                   placeholder="Enter your secret key"
                   autoFocus
+                  autoComplete="off"
                 />
                 <button
                   type="button"
