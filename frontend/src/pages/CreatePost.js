@@ -261,6 +261,23 @@ function CreatePost() {
               
               <div className="space-y-4">
                 <div>
+                  <label htmlFor="blog_secret" className="block text-sm font-medium text-gray-700 mb-2">
+                    Blog Secret Key *
+                  </label>
+                  <input
+                    type="password"
+                    id="blog_secret"
+                    name="blog_secret"
+                    required
+                    value={formData.blog_secret}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Enter your blog secret"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">This protects your blog from unauthorized posts</p>
+                </div>
+
+                <div>
                   <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
                     Category
                   </label>
