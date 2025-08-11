@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 
 # Environment variables
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+BLOG_SECRET = os.environ.get('BLOG_SECRET', 'my-blog-secret-2024')
 
 # Initialize FastAPI app
 app = FastAPI(title="Simple Portfolio Blog API", version="1.0.0")
