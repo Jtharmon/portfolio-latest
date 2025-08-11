@@ -14,7 +14,8 @@ function CreatePost() {
     category: 'AI & Machine Learning',
     tags: [],
     featured_image: '',
-    published: true
+    published: true,
+    blog_secret: ''
   });
   const [tagInput, setTagInput] = useState('');
   const [loading, setLoading] = useState(false);
