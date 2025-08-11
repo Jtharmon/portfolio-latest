@@ -265,7 +265,12 @@ async def get_ai_project(project_id: str):
 
 @app.post("/api/projects", response_model=AIProjectResponse)
 async def create_ai_project(project: AIProject):
+    # Check authorization
+    check_blog_authorization(project.blog_secret)
+    
     project_doc = project.dict()
+    # Remove blog_secret from stored data
+    del project_doc["blog_secret"]
     project_doc["created_at"] = datetime.utcnow()
     
     result = db.ai_projects.insert_one(project_doc)
