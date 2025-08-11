@@ -206,7 +206,10 @@ async def update_blog_post(post_id: str, post: BlogPost):
         raise HTTPException(status_code=404, detail="Post not found")
 
 @app.delete("/api/posts/{post_id}")
-async def delete_blog_post(post_id: str):
+async def delete_blog_post(post_id: str, blog_secret: str):
+    # Check authorization
+    check_blog_authorization(blog_secret)
+    
     try:
         result = db.blog_posts.delete_one({"_id": ObjectId(post_id)})
         if result.deleted_count == 0:
