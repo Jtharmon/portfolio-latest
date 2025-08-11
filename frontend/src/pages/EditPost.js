@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Save, Upload, X, Trash2 } from 'lucide-react';
+import { ArrowLeft, Save, Upload, X, Trash2, Lock } from 'lucide-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useBlogAuth } from '../context/BlogAuthContext';
+import SecretKeyModal from '../components/SecretKeyModal';
 
 function EditPost() {
   const { id } = useParams();
