@@ -126,6 +126,11 @@ function CreatePost() {
       return;
     }
 
+    if (!formData.blog_secret.trim()) {
+      toast.error('Please enter your blog secret key');
+      return;
+    }
+
     try {
       setLoading(true);
       const response = await axios.post(`${API_URL}/api/posts`, formData);
@@ -134,7 +139,11 @@ function CreatePost() {
       navigate(`/blog/${response.data.id}`);
     } catch (error) {
       console.error('Error creating post:', error);
-      toast.error('Failed to create post');
+      if (error.response?.status === 401) {
+        toast.error('Invalid blog secret key');
+      } else {
+        toast.error('Failed to create post');
+      }
     } finally {
       setLoading(false);
     }
