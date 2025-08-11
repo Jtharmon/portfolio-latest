@@ -314,18 +314,37 @@ function CreateProject() {
             <div className="card p-6 bg-white/80 backdrop-blur-sm border-0 shadow-xl">
               <h3 className="font-semibold text-gray-900 mb-4">Project Settings</h3>
               
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="featured"
-                  name="featured"
-                  checked={formData.featured}
-                  onChange={handleChange}
-                  className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
-                />
-                <label htmlFor="featured" className="ml-2 text-sm font-medium text-gray-700">
-                  Featured Project
-                </label>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="blog_secret" className="block text-sm font-medium text-gray-700 mb-2">
+                    Blog Secret Key *
+                  </label>
+                  <input
+                    type="password"
+                    id="blog_secret"
+                    name="blog_secret"
+                    required
+                    value={formData.blog_secret}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    placeholder="Enter your blog secret"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">This protects your blog from unauthorized projects</p>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="featured"
+                    name="featured"
+                    checked={formData.featured}
+                    onChange={handleChange}
+                    className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                  />
+                  <label htmlFor="featured" className="ml-2 text-sm font-medium text-gray-700">
+                    Featured Project
+                  </label>
+                </div>
               </div>
             </div>
 
