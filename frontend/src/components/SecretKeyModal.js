@@ -27,12 +27,9 @@ function SecretKeyModal({ isOpen, onClose, onSuccess, title = "Enter Blog Secret
 
     try {
       setLoading(true);
-      console.log('Submitting secret key verification...');
       const response = await axios.post(`${API_URL}/api/verify-secret`, {
         blog_secret: secretKey
       });
-
-      console.log('Verification response:', response.data);
 
       if (response.data.valid) {
         toast.success('Access granted! Redirecting...', {
