@@ -172,8 +172,13 @@ async def create_blog_post(post: BlogPost):
 
 @app.put("/api/posts/{post_id}", response_model=BlogPostResponse)
 async def update_blog_post(post_id: str, post: BlogPost):
+    # Check authorization
+    check_blog_authorization(post.blog_secret)
+    
     try:
         post_doc = post.dict()
+        # Remove blog_secret from stored data
+        del post_doc["blog_secret"]
         post_doc["updated_at"] = datetime.utcnow()
         
         result = db.blog_posts.update_one(
