@@ -201,22 +201,36 @@ function EditPost() {
       return;
     }
 
-    if (!formData.blog_secret.trim()) {
-      toast.error('Please enter your blog secret key to delete');
+    if (!isAuthenticated) {
+      toast.error('Please authenticate first');
+      setShowAuthModal(true);
       return;
     }
 
     try {
-      await axios.delete(`${API_URL}/api/posts/${id}?blog_secret=${encodeURIComponent(formData.blog_secret)}`);
+      await axios.delete(`${API_URL}/api/posts/${id}?blog_secret=${encodeURIComponent(secretKey)}`);
       toast.success('Post deleted successfully');
       navigate('/blog');
     } catch (error) {
       console.error('Error deleting post:', error);
       if (error.response?.status === 401) {
-        toast.error('Invalid blog secret key');
+        toast.error('Authentication expired. Please re-authenticate.');
+        setShowAuthModal(true);
       } else {
         toast.error('Failed to delete post');
       }
+    }
+  };
+
+  const handleAuthSuccess = (key) => {
+    authenticate(key);
+    setShowAuthModal(false);
+  };
+
+  const handleAuthClose = () => {
+    setShowAuthModal(false);
+    if (!isAuthenticated) {
+      navigate('/blog');
     }
   };
 
