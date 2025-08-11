@@ -502,7 +502,15 @@ function EditPost() {
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Authentication Modal */}
+      <SecretKeyModal
+        isOpen={showAuthModal}
+        onClose={handleAuthClose}
+        onSuccess={handleAuthSuccess}
+        title="Authenticate to Edit Post"
+      />
+    </>
   );
 }
 
