@@ -266,51 +266,58 @@ function EditPost() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <Link 
-                to={`/blog/${id}`} 
-                className="flex items-center space-x-2 px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all duration-200"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back to Post</span>
-              </Link>
-              <div>
-                <h1 className="font-display text-2xl font-bold">
-                  Edit Post
-                </h1>
-                <p className="text-primary-100">Update your content</p>
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center space-x-4">
+                <Link 
+                  to={`/blog/${id}`} 
+                  className="flex items-center space-x-2 px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all duration-200"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Back to Post</span>
+                </Link>
+                <div>
+                  <h1 className="font-display text-2xl font-bold">
+                    Edit Post
+                  </h1>
+                  <div className="flex items-center space-x-2">
+                    <p className="text-primary-100">Update your content</p>
+                    <div className="flex items-center space-x-1 text-green-300">
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <span className="text-xs">Authenticated</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={handleDelete}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition-all duration-200 flex items-center space-x-2"
-              >
-                <Trash2 className="w-4 h-4" />
-                <span>Delete</span>
-              </button>
-              <button
-                onClick={handleSubmit}
-                disabled={saving || !formData.title.trim()}
-                className="bg-white text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-              >
-                {saving ? (
-                  <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                  <Save className="w-4 h-4" />
-                )}
-                <span>Update Post</span>
-              </button>
+              
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-600 transition-all duration-200 flex items-center space-x-2"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  <span>Delete</span>
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={saving || !formData.title.trim()}
+                  className="bg-white text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                >
+                  {saving ? (
+                    <div className="w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <Save className="w-4 h-4" />
+                  )}
+                  <span>Update Post</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
