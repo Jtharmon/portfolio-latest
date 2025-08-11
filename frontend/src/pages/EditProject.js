@@ -141,6 +141,11 @@ function EditProject() {
       return;
     }
 
+    if (!formData.blog_secret.trim()) {
+      toast.error('Please enter your blog secret key');
+      return;
+    }
+
     try {
       setSaving(true);
       await axios.put(`${API_URL}/api/projects/${id}`, formData);
@@ -149,7 +154,11 @@ function EditProject() {
       navigate(`/projects/${id}`);
     } catch (error) {
       console.error('Error updating project:', error);
-      toast.error('Failed to update project');
+      if (error.response?.status === 401) {
+        toast.error('Invalid blog secret key');
+      } else {
+        toast.error('Failed to update project');
+      }
     } finally {
       setSaving(false);
     }
@@ -160,13 +169,22 @@ function EditProject() {
       return;
     }
 
+    if (!formData.blog_secret.trim()) {
+      toast.error('Please enter your blog secret key to delete');
+      return;
+    }
+
     try {
-      await axios.delete(`${API_URL}/api/projects/${id}`);
+      await axios.delete(`${API_URL}/api/projects/${id}?blog_secret=${encodeURIComponent(formData.blog_secret)}`);
       toast.success('Project deleted successfully');
       navigate('/projects');
     } catch (error) {
       console.error('Error deleting project:', error);
-      toast.error('Failed to delete project');
+      if (error.response?.status === 401) {
+        toast.error('Invalid blog secret key');
+      } else {
+        toast.error('Failed to delete project');
+      }
     }
   };
 
