@@ -63,6 +63,13 @@ function EditPost() {
     fetchPost();
   }, [id]);
 
+  // Check authentication after loading
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      setShowAuthModal(true);
+    }
+  }, [loading, isAuthenticated]);
+
   const fetchPost = async () => {
     try {
       setLoading(true);
