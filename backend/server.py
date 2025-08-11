@@ -82,7 +82,18 @@ class AIProjectResponse(BaseModel):
     featured: bool
     created_at: datetime
 
-# API Routes
+# Utility functions
+def verify_blog_secret(provided_secret: str) -> bool:
+    """Verify if the provided secret matches the blog secret"""
+    return provided_secret == BLOG_SECRET
+
+def check_blog_authorization(blog_secret: str):
+    """Check if the blog secret is valid, raise HTTPException if not"""
+    if not verify_blog_secret(blog_secret):
+        raise HTTPException(
+            status_code=401, 
+            detail="Invalid blog secret. You are not authorized to perform this action."
+        )
 
 # Blog Post Routes
 @app.get("/api/posts", response_model=List[BlogPostResponse])
