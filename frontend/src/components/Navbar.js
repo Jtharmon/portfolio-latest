@@ -34,9 +34,12 @@ function Navbar() {
   };
 
   const handleCreateAction = (action) => {
+    console.log('handleCreateAction called with:', action, 'isAuthenticated:', isAuthenticated);
     if (isAuthenticated) {
+      console.log('User is authenticated, navigating to:', `/${action}`);
       navigate(`/${action}`);
     } else {
+      console.log('User not authenticated, opening modal with pending action:', action);
       setPendingAction(action);
       setIsSecretModalOpen(true);
     }
