@@ -64,7 +64,8 @@ function EditPost() {
     try {
       setLoading(true);
       const response = await axios.get(`${API_URL}/api/posts/${id}`);
-      setFormData(response.data);
+      // Don't include blog_secret in loaded data for security
+      setFormData({ ...response.data, blog_secret: '' });
     } catch (error) {
       console.error('Error fetching post:', error);
       toast.error('Post not found');
