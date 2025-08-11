@@ -301,6 +301,9 @@ async def update_ai_project(project_id: str, project: AIProject):
         project_doc = project.dict()
         # Remove blog_secret from stored data
         del project_doc["blog_secret"]
+        # Remove created_at to avoid overwriting it
+        if "created_at" in project_doc:
+            del project_doc["created_at"]
         
         result = db.ai_projects.update_one(
             {"_id": ObjectId(project_id)}, 
