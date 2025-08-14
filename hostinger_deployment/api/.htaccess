@@ -1,0 +1,19 @@
+# API URL Rewriting for Hostinger
+RewriteEngine On
+
+# Handle CORS preflight requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ - [R=200,L]
+
+# API Routes
+RewriteRule ^posts/?$ posts.php [L,QSA]
+RewriteRule ^posts/([^/]+)/?$ posts.php [L,QSA]
+RewriteRule ^projects/?$ projects.php [L,QSA]
+RewriteRule ^projects/([^/]+)/?$ projects.php [L,QSA]
+RewriteRule ^verify-secret/?$ verify-secret.php [L,QSA]
+RewriteRule ^upload/?$ upload.php [L,QSA]
+RewriteRule ^categories/?$ categories.php [L,QSA]
+RewriteRule ^tags/?$ tags.php [L,QSA]
+
+# Health check endpoint
+RewriteRule ^health/?$ health.php [L,QSA]
